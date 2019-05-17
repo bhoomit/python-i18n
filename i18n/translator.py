@@ -49,7 +49,7 @@ def translate(key, **kwargs):
     else:
         if 'count' in kwargs:
             translation = pluralize(key, r, kwargs['count'])
-        result = TranslationFormatter(translation).format(**kwargs))
+        result = TranslationFormatter(translation).format(**kwargs)
     return result
 
 def pluralize(key, translation, count):
