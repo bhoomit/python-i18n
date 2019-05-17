@@ -39,10 +39,18 @@ def t(key, **kwargs):
 def translate(key, **kwargs):
     locale = kwargs.pop('locale', config.get('locale'))
     translation = translations.get(key, locale=locale)
-    if 'count' in kwargs:
-        translation = pluralize(key, translation, kwargs['count'])
-    return TranslationFormatter(translation).format(**kwargs)
-
+    result = None
+    if isinstance(translation, list):
+        result = []
+        for r in translation:
+            if 'count' in kwargs:
+                translation = pluralize(key, r, kwargs['count'])
+            result.append(TranslationFormatter(r).format(**kwargs))
+    else:
+        if 'count' in kwargs:
+            translation = pluralize(key, r, kwargs['count'])
+        result = TranslationFormatter(translation).format(**kwargs))
+    return result
 
 def pluralize(key, translation, count):
     return_value = key
