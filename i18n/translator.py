@@ -15,7 +15,10 @@ class TranslationFormatter(Template):
         if config.get('error_on_missing_placeholder'):
             return self.substitute(**kwargs)
         else:
-            return self.safe_substitute(**kwargs)
+            try:
+                return self.safe_substitute(**kwargs)
+            except:
+                return self.template
 
 
 def t(key, **kwargs):
